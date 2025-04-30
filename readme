@@ -1,0 +1,138 @@
+# How to Build an AI Browser Assistant with Python - Step by Step Tutorial
+
+## Introduction
+
+Hey everyone! Today, I'm going to show you how to build your own AI-powered browser assistant that can automate tasks like web scraping, form filling, and data extraction. This project uses Python and the Gemini AI model to create a smart browser automation tool.
+
+## Step 1: Setting Up Your Environment
+
+First, let's set up our development environment:
+
+1. Create a new project folder:
+
+```bash
+mkdir browser-use-project
+cd browser-use-project
+```
+
+2. Create a Python virtual environment:
+
+```bash
+python -m venv venv
+```
+
+3. Activate the virtual environment:
+
+- On Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+- On Mac/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+## Step 2: Installing Required Packages
+
+Now, let's install the necessary packages:
+
+```bash
+pip install browser-use
+```
+
+## Step 3: Setting Up API Keys
+
+1. Create a `.env` file in your project folder
+2. Add your Gemini API key:
+
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+```bash
+brew install --cask chromium
+```
+
+## Step 4: Writing Your First Script
+
+Let's create a simple script to test our setup. Create a file called `test.py`:
+
+```python
+from browser_use import BrowserUse
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
+
+# Initialize the browser assistant
+browser = BrowserUse()
+
+# Define your task
+task = "Go to Amazon and search for 'gaming laptops'. Get the first 3 product names and prices."
+
+# Run the task
+result = browser.run(task)
+
+# Print the results
+print(result)
+```
+
+## Step 5: Running Your Script
+
+Execute your script:
+
+```bash
+playwright install
+```
+
+```bash
+python examples/simple.py
+```
+
+## Step 6: Understanding the Results
+
+The script will:
+
+1. Open a browser window
+2. Navigate to Amazon
+3. Search for gaming laptops
+4. Extract the first 3 product names and prices
+5. Display the results in your terminal
+
+## Common Issues and Solutions
+
+1. If you get an API key error:
+
+   - Double-check your `.env` file
+   - Make sure the API key is correct
+   - Ensure you've activated your virtual environment
+
+2. If you get rate limit errors:
+   - Wait a few minutes before trying again
+   - Consider upgrading your API plan if needed
+
+## Advanced Usage
+
+You can modify the task to do different things:
+
+- Extract data from any website
+- Fill out forms automatically
+- Compare prices across different sites
+- Monitor website changes
+
+## Conclusion
+
+That's it! You've now created your own AI-powered browser assistant. This tool can be used for various automation tasks, making your web browsing and data collection much more efficient.
+
+## Next Steps
+
+1. Try different websites and tasks
+2. Experiment with more complex automation
+3. Build your own custom automation scripts
+4. Share your results in the comments!
+
+Don't forget to like and subscribe for more tech tutorials! Let me know in the comments what kind of automation tasks you'd like to try with this tool.

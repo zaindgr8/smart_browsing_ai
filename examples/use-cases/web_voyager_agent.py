@@ -8,8 +8,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dotenv import load_dotenv
-from langchain_openai import AzureChatOpenAI, ChatOpenAI
-from pydantic import SecretStr
+import google.generativeai as genai
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from browser_use.agent.service import Agent
 from browser_use.browser.browser import Browser, BrowserConfig, BrowserContextConfig
@@ -18,21 +18,16 @@ from browser_use.browser.context import BrowserContextWindowSize
 # Load environment variables
 load_dotenv()
 
-# Set LLM based on defined environment variables
-if os.getenv('OPENAI_API_KEY'):
-	llm = ChatOpenAI(
-		model='gpt-4o',
-	)
-elif os.getenv('AZURE_OPENAI_KEY') and os.getenv('AZURE_OPENAI_ENDPOINT'):
-	llm = AzureChatOpenAI(
-		model='gpt-4o',
-		api_version='2024-10-21',
-		azure_endpoint=os.getenv('AZURE_OPENAI_ENDPOINT', ''),
-		api_key=SecretStr(os.getenv('AZURE_OPENAI_KEY', '')),
-	)
-else:
-	raise ValueError('No LLM found. Please set OPENAI_API_KEY or AZURE_OPENAI_KEY and AZURE_OPENAI_ENDPOINT.')
+# Configure Gemini API
+gemini_api_key = os.getenv('GEMINI_API_KEY')
+if not gemini_api_key:
+	raise ValueError('No GEMINI_API_KEY found. Please set GEMINI_API_KEY in your .env file.')
 
+llm = ChatGoogleGenerativeAI(
+	model="gemini-2.0-flash",
+	google_api_key=gemini_api_key,
+	convert_system_message_to_human=True
+)
 
 browser = Browser(
 	config=BrowserConfig(
@@ -42,22 +37,22 @@ browser = Browser(
 			disable_security=True,
 			minimum_wait_page_load_time=1,  # 3 on prod
 			maximum_wait_page_load_time=10,  # 20 on prod
-			# no_viewport=True,
 			browser_window_size=BrowserContextWindowSize(width=1280, height=1100),
-			# trace_path='./tmp/web_voyager_agent',
 		),
 	)
 )
 
-# TASK = """
-# Find the lowest-priced one-way flight from Cairo to Montreal on February 21, 2025, including the total travel time and number of stops. on https://www.google.com/travel/flights/
-# """
-# TASK = """
-# Browse Coursera, which universities offer Master of Advanced Study in Engineering degrees? Tell me what is the latest application deadline for this degree? on https://www.coursera.org/"""
 TASK = """
-Find and book a hotel in Paris with suitable accommodations for a family of four (two adults and two children) offering free cancellation for the dates of February 14-21, 2025. on https://www.booking.com/
+Search for the best priced resort in Bali on booking.com with the following requirements:
+- 1 bedroom accommodation
+- 2 nights stay
+- Sort by price (lowest first)
+- Select dates from 10th May 2025 to 12th May 2025
+- Chose 1 rooms and 2 adults option
+- use your reasoning to find the best resort
+- reserve the best resort
+- use your creativity from searching to finding to reserving the best resort in Bali , but in the end best room should be reserved. In any complex situation you must use your ultimate intelligence to go through.
 """
-
 
 async def main():
 	agent = Agent(
@@ -69,7 +64,6 @@ async def main():
 	)
 	history = await agent.run(max_steps=50)
 	history.save_to_file('./tmp/history.json')
-
 
 if __name__ == '__main__':
 	asyncio.run(main())

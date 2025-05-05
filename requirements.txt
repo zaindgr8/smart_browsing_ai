@@ -1,0 +1,5 @@
+gradio>=4.0.0
+google-generativeai
+python-dotenv
+playwright
+patchright 

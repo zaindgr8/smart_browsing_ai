@@ -7,20 +7,24 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from browser_use import Agent, Browser
 
 # Load environment variables
 load_dotenv()
-if not os.getenv('OPENAI_API_KEY'):
-	raise ValueError('OPENAI_API_KEY is not set. Please add it to your environment variables.')
+if not os.getenv('GEMINI_API_KEY'):
+	raise ValueError('GEMINI_API_KEY is not set. Please add it to your environment variables.')
 
 
 async def main():
 	browser = Browser()
 	async with await browser.new_context() as context:
-		model = ChatOpenAI(model='gpt-4o')
+		model = ChatGoogleGenerativeAI(
+			model="gemini-2.0-flash",
+			google_api_key=os.getenv('GEMINI_API_KEY'),
+			convert_system_message_to_human=True
+		)
 
 		# Initialize browser agent
 		agent1 = Agent(

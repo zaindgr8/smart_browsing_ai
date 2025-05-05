@@ -118,8 +118,18 @@ async def main():
 	ground_task = (
 		'You are a professional job finder. '
 		'1. Read my cv with read_cv'
-		'find ml internships in and save them to a file'
-		'search at company:'
+		'find web developer jobs and save them to a file'
+		'search jobs at linked in'
+		"If it asks you to verify as a human, click on the checkbox and then click on the button that says 'Continue'"
+		"Sign in as email and My Email for linked in is: zainulabideenbaloch@proton.me"
+		"my password for linked in is: Ajalpc@yo1"
+		"Search for web developer jobs"
+		"Job Location should be United States"
+		"Only Apply for the jobs with option of Easy Apply"
+		"Apply on all the jobs in this category but do not apply same job twice"
+		"If you find a job that you have already applied to, do not apply again"
+		"After clicking Easy Apply mentioned in the job. Slelect first cv option and fill all the options and click on submit application"
+		"Than close any pop up and continue with next job"
 	)
 	tasks = [
 		ground_task + '\n' + 'Google',

@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 controller = Controller()
 
 # NOTE: This is the path to your cv file
-CV = Path.cwd() / 'cv.pdf'
+CV = Path.cwd() / 'mycv.pdf'
 
 if not CV.exists():
 	raise FileNotFoundError(f'You need to set the path to your cv file in the CV variable. CV file not found at {CV}')
@@ -60,7 +60,7 @@ def save_jobs(job: Job):
 
 @controller.action('Read jobs from file')
 def read_jobs():
-	with open('jobs.csv', 'r') as f:
+	with open('mycv.pdf', 'r') as f:
 		return f.read()
 
 
@@ -121,8 +121,8 @@ async def main():
 		'find web developer jobs and save them to a file'
 		'search jobs at linked in'
 		"If it asks you to verify as a human, click on the checkbox and then click on the button that says 'Continue'"
-		"Sign in as email and My Email for linked in is: zainulabideenbaloch@proton.me"
-		"my password for linked in is: Ajalpc@yo1"
+		"Sign in as email and My Email for linked in is: //"
+		"my password for linked in is: //"
 		"Search for web developer jobs"
 		"Job Location should be United States"
 		"Only Apply for the jobs with option of Easy Apply"

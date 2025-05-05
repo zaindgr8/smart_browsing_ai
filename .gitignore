@@ -37,4 +37,12 @@ Thumbs.db
 
 # Project specific
 .env
-*.log 
+*.log
+
+# Large files
+*.dylib
+node
+
+# Distribution / packaging
+*.csv
+.gradio/ 
